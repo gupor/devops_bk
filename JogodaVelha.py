@@ -1,145 +1,95 @@
-''' Jogo da Velha'''
+from random import randint
 
-'''Preenchimento do tabuleiro, montado em forma de dicionário'''
-tabuleiroI = {'1': ' 1 ', '2': ' 2 ', '3': ' 3 ',
-              '4': ' 4 ', '5': ' 5 ', '6': ' 6 ',
-              '7': ' 7 ', '8': ' 8 ', '9': ' 9 '}
+theBoard = { '1': '1' , '2': '2' , '3': '3' ,
+             '4': '4' , '5': '5' , '6': '6' ,
+             '7': '7' , '8': '8' , '9': '9' ,}
+            
+boardKeys = []
 
-'''Separadores do tabuleiro'''
-formatoCol = '|'
-formatoLinha = '--+---+--'
+for key in theBoard:
+    boardKeys.append(key)
 
-'''Função para imprimir o tabuleiro no terminal do jogador'''
+    def print_board_def(board):
+        print(" Tabuleiro:\n")
+        print('', board['1'] , '|' , board['2'] , '|' , board['3'])
+        print("---|---|---")
+        print('', board['4'] , '|' , board['5'] , '|' , board['6'])
+        print("---|---|---")       
+        print('', board['7'] , '|' , board['8'] , '|' , board['9'])
 
+    def game_board_def():  
+        turn = 'X'
+        count = 0
 
-def imprimirTabuleiro(tabuleiroI):
-    print(tabuleiroI['1']+formatoCol +
-          tabuleiroI['2']+formatoCol+tabuleiroI['3'])
-    print(formatoLinha)
-    print(tabuleiroI['4']+formatoCol +
-          tabuleiroI['5']+formatoCol+tabuleiroI['6'])
-    print(formatoLinha)
-    print(tabuleiroI['7']+formatoCol +
-          tabuleiroI['8']+formatoCol+tabuleiroI['9'])
+        firstPlayer = randint(1, 2)
+        if firstPlayer == 1:
+            turn = 'X'
+        elif firstPlayer == 2:
+            turn = 'O'   
 
+        for i in range(10):
+            print_board_def(theBoard)
+            print("É sua vez, " + turn + ". Aonde deseja jogar?")
 
-def jogo():
-    global tabuleiroI
+            move = input()
+        
+            if theBoard[move] == move:
+                theBoard[move] = turn
+                count += 1
+            else:
+                print("Este campo já esta preenchido!.\nAonde deseja jogar?")
+                continue
 
-    peca = ' X '
-    numJogadas = 0
-
-    for i in range(10):
-        imprimirTabuleiro(tabuleiroI)
-        jogada = input('Jogador'+peca +
-                       ', informe a posição que deseja marcar '+peca+': ')
-
-        if tabuleiroI[jogada] != ' X ' and tabuleiroI[jogada] != ' O ':
-            tabuleiroI[jogada] = peca
-          #  jogador = '2'
-            numJogadas += 1
-
-        else:
-            print('Jogada inválida, tente novamente.')
-            continue
-
-        if numJogadas >= 5:
-            ''' X X X
-                - - -
-                - - -'''
-            if tabuleiroI['1'] == tabuleiroI['2'] == tabuleiroI['3']:
-                imprimirTabuleiro(tabuleiroI)
-                print("\n>>> FIM DE JOGO <<<\n")
-                print("\n * Jogador" + peca + " venceu! *\n")
+            if count >= 5:
+                if theBoard['1'] == theBoard['2'] == theBoard['3'] != move:
+                    print_board_def(theBoard)
+                    print("\nGAME OVER!!.\n")                
+                    print("O jogador " +turn + " venceu.")                
+                    break
+                elif theBoard['4'] == theBoard['5'] == theBoard['6'] != move: 
+                    print_board_def(theBoard)
+                    print("\nGAME OVER!!.\n")           
+                    print("O jogador " +turn + " venceu.")
+                    break
+                elif theBoard['7'] == theBoard['8'] == theBoard['9'] != move:  
+                    print_board_def(theBoard)
+                    print("\nGAME OVER!!.\n")                
+                    print("O jogador " +turn + " venceu.")
+                    break
+                elif theBoard['1'] == theBoard['5'] == theBoard['9'] != move:  
+                    print_board_def(theBoard)
+                    print("\nGAME OVER!!.\n")              
+                    print("O jogador " +turn + " venceu.")
+                    break
+                elif theBoard['3'] == theBoard['5'] == theBoard['7'] != move: 
+                    print_board_def(theBoard)
+                    print("\nGAME OVER!!.\n")               
+                    print("O jogador " +turn + " venceu.")
+                    break
+                elif theBoard['1'] == theBoard['4'] == theBoard['7'] != move: 
+                    print_board_def(theBoard)
+                    print("\nGAME OVER!!.\n")               
+                    print("O jogador " +turn + " venceu.")
+                    break 
+                elif theBoard['2'] == theBoard['5'] == theBoard['8'] != move: 
+                    print_board_def(theBoard)
+                    print("\nGAME OVER!!.\n")                
+                    print("O jogador " +turn + " venceu.")
+                    break
+                elif theBoard['3'] == theBoard['6'] == theBoard['9'] != move: 
+                    print_board_def(theBoard)
+                    print("\nGAME OVER!!.\n")              
+                    print("O jogador " +turn + " venceu.")
+                    break 
+                    
+            if count == 9:
+                print("\nPartida FINALIZADA!!.\n")                
+                print("O jogo EMPATOU!")
                 break
-
-                """
-                - - -
-                X X X
-                - - -
-                """
-
-            elif tabuleiroI['4'] == tabuleiroI['5'] == tabuleiroI['6']:
-                imprimirTabuleiro(tabuleiroI)
-                print("\n>>> FIM DE JOGO <<<\n")
-                print("\n * Jogador" + peca + " venceu! *\n")
-                break
-
-                ''' - - -
-                    - - -
-                    X X X'''
-
-            elif tabuleiroI['7'] == tabuleiroI['8'] == tabuleiroI['9']:
-                imprimirTabuleiro(tabuleiroI)
-                print("\n>>> FIM DE JOGO <<<\n")
-                print("\n * Jogador" + peca + " venceu! *\n")
-                break
-
-                ''' X - -
-                    X - -
-                    X - - '''
-
-            elif tabuleiroI['1'] == tabuleiroI['4'] == tabuleiroI['7']:
-                imprimirTabuleiro(tabuleiroI)
-                print("\n>>> FIM DE JOGO <<<\n")
-                print("\n * Jogador" + peca + " venceu! *\n")
-                break
-
-                ''' - X -
-                    - X -
-                    - X - '''
-
-            elif tabuleiroI['2'] == tabuleiroI['5'] == tabuleiroI['8']:
-                imprimirTabuleiro(tabuleiroI)
-                print("\n>>> FIM DE JOGO <<<\n")
-                print("\n * Jogador" + peca + " venceu! *\n")
-                break
-
-                ''' - - X
-                    - - X
-                    - - X '''
-
-            elif tabuleiroI['3'] == tabuleiroI['6'] == tabuleiroI['9']:
-                imprimirTabuleiro(tabuleiroI)
-                print("\n>>> FIM DE JOGO <<<\n")
-                print("\n * Jogador" + peca + " venceu! *\n")
-                break
-
-                ''' X - -
-                    - X -
-                    - - X '''
-
-            elif tabuleiroI['1'] == tabuleiroI['5'] == tabuleiroI['9']:
-                imprimirTabuleiro(tabuleiroI)
-                print("\n>>> FIM DE JOGO <<<\n")
-                print("\n * Jogador" + peca + " venceu! *\n")
-                break
-
-            elif tabuleiroI['3'] == tabuleiroI['5'] == tabuleiroI['7']:
-                imprimirTabuleiro(tabuleiroI)
-                print("\n>>> FIM DE JOGO <<<\n")
-                print("\n * Jogador" + peca + " venceu! *\n")
-                break
-
-        if numJogadas == 9:
-            print("\n>>> FIM DE JOGO <<<\n")
-            print("\nJogador1 e jogaor2 empataram!\n")
-
-        if peca == ' X ':
-            peca = ' O '
-           # jogador = '2'
-        else:
-            peca = ' X '
-            #jogador = '1'
-
-    # Now we will ask if player wants to restart the game or not.
-    reiniciar = input("Gostaria de jogar novamente?(s/n)")
-    if reiniciar == "s" or reiniciar == "S":
-        tabuleiroI = {'1': ' 1 ', '2': ' 2 ', '3': ' 3 ',
-                      '4': ' 4 ', '5': ' 5 ', '6': ' 6 ',
-                      '7': ' 7 ', '8': ' 8 ', '9': ' 9 '}
-        jogo()
-
-
-#if _name_ == "_main_":
-jogo()
+                    
+            if turn =='X':
+                turn = 'O'
+            else:
+                turn = 'X'   
+            
+game_board_def()
