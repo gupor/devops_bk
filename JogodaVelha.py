@@ -37,7 +37,7 @@ for key in theBoard:
                 theBoard[move] = turn
                 count += 1
             else:
-                print("Este campo já esta preenchido!.\nAonde deseja jogar???")
+                print("Este campo já esta preenchido!.\nAonde deseja jogar?????")
                 continue
 
             if count >= 5:
