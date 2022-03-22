@@ -5,7 +5,7 @@ theBoard = { '1': '1' , '2': '2' , '3': '3' ,
              '7': '7' , '8': '8' , '9': '9' ,}
             
 boardKeys = [] #comentando aqui#
-#teste12456#1
+#teste12456 outro teste"
 for key in theBoard:
     boardKeys.append(key)
 
