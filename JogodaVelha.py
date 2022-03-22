@@ -29,7 +29,7 @@ for key in theBoard:
 
         for i in range(10):
             print_board_def(theBoard)
-            print("É sua vez, " + turn + ". Aonde gostaria de jogar?")
+            print("É sua vez, " + turn + ". Aonde gostaria de jogar???")
 
             move = input()
         
